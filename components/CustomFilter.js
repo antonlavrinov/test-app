@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import styled from 'styled-components'
 import ArrowIcon from '../assets/arrow.svg'
 import { useClickOutside } from '../hooks'
@@ -8,7 +8,7 @@ const Arrow = styled(props => <ArrowIcon {...props}/>)`
 `
 
 
-const OrderingSelect = styled.div`
+const FilterSelect = styled.div`
     background: var(--pale-blue);
     padding: 10px;
     color: var(--pale-text);
@@ -18,6 +18,7 @@ const OrderingSelect = styled.div`
     justify-content: space-between;
     align-items: center;
     white-space: nowrap;
+
     svg {
         width: 10px;
         height: 10px;
@@ -27,20 +28,30 @@ const OrderingSelect = styled.div`
     :hover {
         cursor: pointer;
     }
+    ${props => props.isLoading && `
+        :hover {
+            cursor: default;
+        }
+    `}
 
 `
 
-const OrderingSelectTitle = styled.div`
+const FilterSelectTitle = styled.div`
     span {
         color: var(--white);
     }
+    ${props => props.isLoading && `
+        span {
+            color: var(--pale-text);
+        }
+    `}
 `
 
 
 
 
 
-const OrderingOptionList = styled.div`
+const FilterOptionList = styled.div`
     width: 100%;
     background: var(--dark);
     padding: 15px;
@@ -51,7 +62,7 @@ const OrderingOptionList = styled.div`
     z-index: 2;
 
 `
-const OrderingOption = styled.div`
+const FilterOption = styled.div`
     padding: 5px;
     border-radius: 5px;
     :hover {
@@ -66,75 +77,76 @@ const OrderingOption = styled.div`
 
 `
 
-const OrderingSelectWrapper = styled.div`
+const FilterSelectWrapper = styled.div`
     position: relative;
     min-width: 250px;
-    margin-bottom: 25px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    :last-child {
+        margin-right: 0;
+    }
+
 `
 
 
 
 
 
-const Ordering = ({selectOrder}) => {
+const CustomFilter = ({selectFilter, filterList, defaultOption, loading}) => {
 
     const [dropdown, setDropdownActive] = useState(false)
-    const [selectedOrder, setSelectedOrder] = useState('All')
+    const [selectedOption, setSelectedOption] = useState(defaultOption)
 
     const dropdownRef = useClickOutside(() => {
         setDropdownActive(false)
     })
 
 
-    const orderingList = [
-        {name: 'All', value: '-added'},
-        {name: 'Date: ascending', value: '-released'},
-        {name: 'Date: descending', value: 'released'},
-        {name: 'Rating: ascending', value: '-rating'},
-        {name: 'Rating: descending', value: 'rating'},
-      ]
+
 
     const handleClick = (value, name) => {
+        if (loading) return
         toggleDropdown()
-        selectOrder(value)
-        setSelectedOrder(name)
+        selectFilter(value, name)
+        setSelectedOption(name)
 
     }
 
     const toggleDropdown = () => {
+        if (loading) return
         setDropdownActive((state) => !state)
     }
 
     return (
-        <OrderingSelectWrapper>
-            <OrderingSelect onClick={toggleDropdown}>
-                <OrderingSelectTitle>
-                    Order by: <span>{selectedOrder}</span>
-                </OrderingSelectTitle>
+        <FilterSelectWrapper>
+            <FilterSelect isLoading={loading} onClick={toggleDropdown} >
+                <FilterSelectTitle isLoading={loading} >
+                    Order by: <span>{selectedOption}</span>
+                </FilterSelectTitle>
                 <Arrow/>
-            </OrderingSelect>
+            </FilterSelect>
             {dropdown && (
-                <OrderingOptionList ref={dropdownRef}>
-                    {orderingList.map((ordering) => {
-                        const selectStyle = ordering.name === selectedOrder ? true : false
+                <FilterOptionList ref={dropdownRef}>
+                    {filterList.map((ordering) => {
+                        const selectStyle = ordering.name === selectedOption ? true : false
                         return (
-                            <OrderingOption 
+                            <FilterOption 
                                 selectStyle={selectStyle}
                                 key={ordering.value} 
                                 value={ordering.value}
                                 onClick={() => handleClick(ordering.value, ordering.name)}
                             >
                                 {ordering.name}
-                            </OrderingOption>
+                            </FilterOption>
                         )
                     })}
-                </OrderingOptionList>
+                </FilterOptionList>
             )}
 
-        </OrderingSelectWrapper>
+        </FilterSelectWrapper>
 
 
     )
 }
 
-export default Ordering
+export default CustomFilter

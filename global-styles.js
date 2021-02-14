@@ -41,6 +41,7 @@ export const GlobalStyle = createGlobalStyle`
     --pale-blue: #1C2841;
     --pale-text: #54617A;
     --white: #fefefe;
+    --swiper-theme-color: #fefefe;
   }
 
   input, input:hover, input:active, input:focus {

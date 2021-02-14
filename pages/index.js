@@ -1,15 +1,14 @@
 import {useState} from 'react'
 
 import Layout from '../components/Layout'
-import Platforms from '../components/Platforms'
 import styled from 'styled-components'
 import RawgService from '../rawg-service'
 import SearchField from '../components/SearchField'
 import GameList from '../components/GameList'
-import Ordering from '../components/Ordering'
 import LoadMore from '../components/LoadMore'
 import Spinner from '../components/Spinner'
 import CrossIcon from '../assets/cross.svg'
+import Filters from '../components/Filters'
 
 
 
@@ -33,7 +32,7 @@ const SearchResultsHeading = styled.div`
 `
 
 const SearchResultsTitle = styled.h1`
-
+    width: 100%;
 `
 
 const SearchReset = styled.div`
@@ -53,13 +52,10 @@ const SearchReset = styled.div`
 const HeadingTitle = styled.h1`
     font-size: 65px;
     margin-bottom: 25px;
+    width: 100%;
 `
 
-const FiltersWrapper = styled.div`
-    display: flex;
-    flex-wrap: wrap;
 
-`
 
 
 const rawgService = new RawgService()
@@ -144,7 +140,7 @@ const HomePage = ({serverGames}) => {
     return (
         <Layout>
             <HomePageContent>
-                <SearchField searchGames={searchGames}/>
+                <SearchField searchGames={searchGames} loading={loading}/>
                 {searchMode ? (
                     <SearchResultsHeading>
                         <SearchResultsTitle>
@@ -165,11 +161,7 @@ const HomePage = ({serverGames}) => {
                     <NotFound>Nothing :(</NotFound>
                 ) : (
                     <>
-                        <FiltersWrapper>
-                            <Platforms selectPlatform={selectPlatform}/>
-                            <Ordering selectOrder={selectOrder}/>
-                        </FiltersWrapper>
-
+                        <Filters loading={loading} selectPlatform={selectPlatform} selectOrder={selectOrder}/>
                         {loading ? (
                             <Spinner/>
                         ) : (

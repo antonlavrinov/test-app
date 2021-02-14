@@ -11,10 +11,6 @@ const spinnerAnimation = keyframes`
 `
 
 const SpinnerBlock = styled.div`
-    // position: absolute;
-
-    // top: 0;
-    // left: 0;
     display: block;
     overflow: hidden;
     background: none;
@@ -42,7 +38,6 @@ const SpinnerWrapper = styled.div`
         animation: ${spinnerAnimation} 0.6s linear infinite;
         top: 50%;
         left: 50%;
-
         box-sizing: content-box;
     }
 
@@ -51,7 +46,6 @@ const SpinnerWrapper = styled.div`
 
 
 const Spinner = () => {
-    
     
     return (
         <SpinnerBlock>

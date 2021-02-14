@@ -78,7 +78,7 @@ const SearchDropdownItem = styled.div`
 const rawgService = new RawgService()
 
 
-const SearchField = ({searchGames}) => {
+const SearchField = ({searchGames, loading}) => {
     const [text, setText] = useState('')
     const [searchResults, setSearchResults] = useState([])
     const [dropdownActive, setDropdownActive] = useState(true)
@@ -132,6 +132,7 @@ const SearchField = ({searchGames}) => {
         <SearchForm onSubmit={handleSubmit}>
             <LookingGlass onClick={handleSubmit}/>
             <SearchInput 
+                disabled={loading}
                 placeholder="Search here..." 
                 type="text"
                 onChange={handleChange}

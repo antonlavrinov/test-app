@@ -3,9 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Container } from '../global-styles'
 
-const HeaderSection = styled.header`
 
-`
 
 const HeaderWrapper = styled.div`
     display: flex;
@@ -29,17 +27,15 @@ const HeaderLogo = styled.div`
 
 const Header = () => {
     return (
-        <HeaderSection>
-            <Container>
-                <HeaderWrapper>
-                    <HeaderLogoWrapper href="/">
-                        <HeaderLogo>
-                            Test App
-                        </HeaderLogo> 
-                    </HeaderLogoWrapper>
-                </HeaderWrapper>
-            </Container>
-        </HeaderSection>
+        <Container>
+            <HeaderWrapper>
+                <HeaderLogoWrapper href="/">
+                    <HeaderLogo>
+                        Test App
+                    </HeaderLogo> 
+                </HeaderLogoWrapper>
+            </HeaderWrapper>
+        </Container>
     )
 }
 

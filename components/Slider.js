@@ -1,4 +1,4 @@
-import SwiperCore, { Navigation, Scrollbar, A11y, Thumbs } from 'swiper'
+import SwiperCore, { Navigation, Scrollbar, A11y, Thumbs, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import styled from 'styled-components'
 import { useState } from 'react';
@@ -22,26 +22,48 @@ const SliderMainWrapper = styled.div`
     align-items: center;
     justidy-content: center;
 
+
     .swiper-button-next, .swiper-button-prev {
-        width: 55px;
-        height: 55px;
-        border-radius: 50px;
-        background: #1A1A1A;
-        :after {
-            color: var(--white);
-            font-size: 20px;
-            font-weight: bold;
-        }
-        :hover {
-            background: var(--white);
-            :after {
-                color: black;
-            }
-        }
+        display: none;
     }
+
 
     .swiper-button-disabled {
         display: none;
+
+
+    }
+
+    .swiper-pagination {
+        display: block;
+    }
+    .swiper-pagination-bullet {
+        background: rgba(256,256,256,0.8);
+    }
+
+    @media only screen and (min-width: 768px) {
+        .swiper-pagination {
+            display: none;
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            display: flex;
+            width: 55px;
+            height: 55px;
+            border-radius: 50px;
+            background: #1A1A1A;
+            :after {
+                color: var(--white);
+                font-size: 20px;
+                font-weight: bold;
+            }
+            :hover {
+                background: var(--white);
+                :after {
+                    color: black;
+                }
+            }
+        }
     }
 
 `
@@ -65,38 +87,42 @@ const SliderItem = styled.div`
 
 
 const SliderThumbsWrapper = styled.div`
-    width: 100%;
-    height: 96px;
-    padding-bottom: 15px;
-    padding-top: 15px;
-    display: flex;
-    justify-content: center;
-    background: black;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    z-index: 15;
+    display: none;
 
-    .swiper-slide {
-        opacity: 0.4;
-        :hover {
-            opacity: 1;
-        }   
-    }
+    @media only screen and (min-width: 768px) {
 
-    .swiper-slide-thumb-active {
-        opacity: 1;
-        :hover {
-            cursor: default;
-        }
-    }
-
-    .swiper-wrapper {
+        width: 100%;
+        height: 96px;
+        padding-bottom: 15px;
+        padding-top: 15px;
         display: flex;
-        justify-content: center;
-    }
-    .swiper-slide {
-        width: 120px !important;
+        background: black;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 15;
+    
+        .swiper-slide {
+            opacity: 0.4;
+            :hover {
+                opacity: 1;
+            }   
+        }
+    
+        .swiper-slide-thumb-active {
+            opacity: 1;
+            :hover {
+                cursor: default;
+            }
+        }
+    
+        .swiper-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+        .swiper-slide {
+            width: 120px !important;
+        }
     }
 
 
@@ -147,7 +173,7 @@ const CloseFullScreen = styled.div`
 
 
 
-SwiperCore.use([Navigation, Scrollbar, A11y, Thumbs]);
+SwiperCore.use([Navigation, Scrollbar, Pagination, A11y, Thumbs]);
 
 export const Slider = ({screenshots, closeFullScreen, currentScreenshot}) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -156,46 +182,42 @@ export const Slider = ({screenshots, closeFullScreen, currentScreenshot}) => {
   
     return (
         <>
-            <SliderMainWrapper
-            >
-                    <CloseFullScreen onClick={closeFullScreen}>
-                        <CloseFullScreenIcon/>
-                    </CloseFullScreen>
-                    <Swiper 
-                        spaceBetween={50}
-                        slidesPerView={1}
-                        navigation
-                        thumbs={{ swiper: thumbsSwiper }}
-                        initialSlide={currentScreenshot}
-                        navigation
-                        >
-                        {screenshots.map((screenshot) => {
-                            return (
-                                <SwiperSlide key={screenshot.id}>
-                                    <SliderItem imageUrl={screenshot.image}></SliderItem>
-                                </SwiperSlide>
-                            )
-                        })}
-
-                    </Swiper>
-
-
+            <SliderMainWrapper>
+                <CloseFullScreen onClick={closeFullScreen}>
+                    <CloseFullScreenIcon/>
+                </CloseFullScreen>
+                <Swiper 
+                    spaceBetween={50}
+                    slidesPerView={1}
+                    navigation
+                    thumbs={{ swiper: thumbsSwiper }}
+                    initialSlide={currentScreenshot}
+                    pagination= {{
+                        clickable: true
+                    }}>
+                    {screenshots.map((screenshot) => {
+                        return (
+                            <SwiperSlide key={screenshot.id}>
+                                <SliderItem imageUrl={screenshot.image}></SliderItem>
+                            </SwiperSlide>
+                        )
+                    })}
+                </Swiper>
             </SliderMainWrapper>
             <SliderThumbsWrapper>
                     <Swiper 
                         spaceBetween={20}
                         slidesPerView={screenshots.length} 
+                        spaceBetween={10}
                         onSwiper={setThumbsSwiper}
                         className="slider-thumb">
                         {screenshots.map((screenshot) => {
-
                             return (
                                 <SwiperSlide key={screenshot.id}>
                                     <SliderThumb imageUrl={screenshot.image}></SliderThumb>
                                 </SwiperSlide>
                             )
                         })}
-
                     </Swiper>
             </SliderThumbsWrapper>
         </>
