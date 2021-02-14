@@ -6,7 +6,7 @@ import Link from 'next/link'
 const GameListWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    gap: 25px;
+    grid-gap: 25px;
     width: 100%;
     @media only screen and (min-width: 576px) {
         grid-template-columns: repeat(2, 1fr);
