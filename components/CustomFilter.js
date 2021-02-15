@@ -119,7 +119,12 @@ const CustomFilter = ({selectFilter, filterList, defaultOption, loading}) => {
 
     return (
         <FilterSelectWrapper>
-            <FilterSelect isLoading={loading} onClick={toggleDropdown} >
+            <FilterSelect 
+            isLoading={loading} 
+            onClick={toggleDropdown} 
+            onKeyPress={toggleDropdown}
+            role="button" 
+            tabIndex="0" >
                 <FilterSelectTitle isLoading={loading} >
                     Order by: <span>{selectedOption}</span>
                 </FilterSelectTitle>
@@ -135,6 +140,9 @@ const CustomFilter = ({selectFilter, filterList, defaultOption, loading}) => {
                                 key={ordering.value} 
                                 value={ordering.value}
                                 onClick={() => handleClick(ordering.value, ordering.name)}
+                                onKeyPress={() => handleClick(ordering.value, ordering.name)}
+                                role="button" 
+                                tabIndex="0"
                             >
                                 {ordering.name}
                             </FilterOption>

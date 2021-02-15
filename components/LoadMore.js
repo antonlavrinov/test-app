@@ -46,12 +46,12 @@ const LoadMore = ({fetchMoreLoading, fetchMoreGames}) => {
         <>
             {fetchMoreLoading ? (
 
-                <LoadMoreButton>
+                <LoadMoreButton aria-label="Load more">
                     <Spinner/>
                 </LoadMoreButton>
 
             ) : (
-                <LoadMoreButton ref={loadMoreElementRef}>Load more</LoadMoreButton>
+                <LoadMoreButton aria-label="Load more" ref={loadMoreElementRef}>Load more</LoadMoreButton>
             )}
 
         </>

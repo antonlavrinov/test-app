@@ -141,8 +141,8 @@ const SearchField = ({searchGames, loading}) => {
                 <SearchDropdown ref={dropdownRef}>
                     {searchResults.map((result) => {
                         return (
-                            <SearchDropdownItemLink key={result.id}  href={`/games/${result.slug}`} >
-                                <SearchDropdownItem onClick={handleDropdownResultClick}>
+                            <SearchDropdownItemLink  key={result.id}  href={`/games/${result.slug}`} >
+                                <SearchDropdownItem role="button" tabIndex="0" onClick={handleDropdownResultClick}>
                                     {result.name}
                                 </SearchDropdownItem>
                             </SearchDropdownItemLink>

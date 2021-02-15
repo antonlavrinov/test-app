@@ -100,7 +100,7 @@ const GameList = ({games}) => {
                 const releaseDate = formatDate(game.released)
                 return (
                     <GameLink key={game.id} href={`/games/${game.slug}`}>
-                        <GameCard imageUrl={game.background_image}>
+                        <GameCard role="button" tabIndex="0" imageUrl={game.background_image}>
                             <GameShadow/>
                             <GameInfo>
                                 <GameTitle>{game.name}</GameTitle>

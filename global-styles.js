@@ -26,10 +26,15 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: inherit;
   }
 
+  *:focus {
+    outline: none;
+  }
+
   body {
       background: var(--background-dark-blue);
       color: var(--white);
       overflow-x: hidden;
+      min-width: 100%;
   }
 
   * {

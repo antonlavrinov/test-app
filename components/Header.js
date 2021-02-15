@@ -30,7 +30,7 @@ const Header = () => {
         <Container>
             <HeaderWrapper>
                 <HeaderLogoWrapper href="/">
-                    <HeaderLogo>
+                    <HeaderLogo role="button" tabIndex="0">
                         Test App
                     </HeaderLogo> 
                 </HeaderLogoWrapper>

@@ -141,7 +141,7 @@ const GamePage = ({game, screenshots}) => {
 
     return (
         <Layout title={game.name}>
-            <BackWrapper href="/"><Back>← Back</Back>
+            <BackWrapper href="/"><Back role="button" tabIndex="0">← Back</Back>
             </BackWrapper>
             <GameWrapper>
                 <GameMainInfo>
@@ -187,9 +187,6 @@ const GamePage = ({game, screenshots}) => {
                 </GameMainInfo>
                 {screenshots.results && (
                     <Screenshots screenshots={screenshots.results}/>
-                    // <GameSlider>
-                    //     <Slider screenshots={screenshots.results}/>
-                    // </GameSlider>
                 )}
             </GameWrapper>
         </Layout>
