@@ -161,11 +161,8 @@ const HomePage = ({serverGames}) => {
 
     return (
         <Layout>
-            
             <HomePageContent>
-                    <SearchField searchGames={searchGames} loading={loading}/>
-
-                
+                <SearchField searchGames={searchGames} loading={loading}/>
                 {searchMode ? (
                     <SearchResultsHeading>
                         <SearchResultsTitle>
@@ -190,10 +187,7 @@ const HomePage = ({serverGames}) => {
                         {loading ? (
                             <Spinner/>
                         ) : (
-                            
-                                <GameList games={games.results}/>
-                            
-                            
+                            <GameList games={games.results}/>
                         )}
                     </>
                 )}

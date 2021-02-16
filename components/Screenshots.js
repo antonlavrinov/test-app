@@ -52,13 +52,13 @@ const Screenshots = ({screenshots}) => {
                 {screenshots.map((screenshot, idx) => {
                     return (
                         <Screenshot 
-                        role="button" 
-                        tabIndex="0" 
-                        imageUrl={screenshot.image} 
-                        onClick={() => triggerFullScreen(idx)} 
-                        onKeyPress={() => triggerFullScreen(idx)}
-                        key={screenshot.id}
-                        >
+                            role="button" 
+                            tabIndex="0" 
+                            imageUrl={screenshot.image} 
+                            onClick={() => triggerFullScreen(idx)} 
+                            onKeyPress={() => triggerFullScreen(idx)}
+                            key={screenshot.id}
+                            >
                         </Screenshot>
                     )
                 })}

@@ -102,7 +102,10 @@ const CustomFilter = ({selectFilter, filterList, defaultOption, loading}) => {
     })
 
 
-
+    const toggleDropdown = () => {
+        if (loading) return
+        setDropdownActive((state) => !state)
+    }
 
     const handleClick = (value, name) => {
         if (loading) return
@@ -112,19 +115,15 @@ const CustomFilter = ({selectFilter, filterList, defaultOption, loading}) => {
 
     }
 
-    const toggleDropdown = () => {
-        if (loading) return
-        setDropdownActive((state) => !state)
-    }
 
     return (
         <FilterSelectWrapper>
             <FilterSelect 
-            isLoading={loading} 
-            onClick={toggleDropdown} 
-            onKeyPress={toggleDropdown}
-            role="button" 
-            tabIndex="0" >
+                isLoading={loading} 
+                onClick={toggleDropdown} 
+                onKeyPress={toggleDropdown}
+                role="button" 
+                tabIndex="0" >
                 <FilterSelectTitle isLoading={loading} >
                     Order by: <span>{selectedOption}</span>
                 </FilterSelectTitle>
