@@ -28,7 +28,6 @@ const LoadMore = ({fetchMoreLoading, fetchMoreGames}) => {
     const observer = useRef()
 
     const loadMoreElementRef = useCallback((node) => {
-        console.log(node)
         if (observer.current) {
             observer.current.disconnect()
         }

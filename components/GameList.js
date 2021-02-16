@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
 
@@ -19,11 +18,10 @@ const GameListWrapper = styled.div`
     }
 `
 
-const GameLink = styled(props => <Link {...props}></Link>)`
 
-`
 
-const GameCard = styled.div`
+const GameCard = styled.a`
+    display: block;
     width: 100%;
     border-radius: 10px;
     transition: all 0.3s ease;
@@ -99,7 +97,7 @@ const GameList = ({games}) => {
             {games.map((game) => {
                 const releaseDate = formatDate(game.released)
                 return (
-                    <GameLink key={game.id} href={`/games/${game.slug}`}>
+                    <Link key={game.id} href={`/games/${game.slug}`} passHref>
                         <GameCard role="button" tabIndex="0" imageUrl={game.background_image}>
                             <GameShadow/>
                             <GameInfo>
@@ -109,7 +107,7 @@ const GameList = ({games}) => {
                             </GameInfo>
                             <GameRating>{game.rating}</GameRating>
                         </GameCard>
-                    </GameLink>
+                    </Link>
                 )
             })}
         </GameListWrapper>

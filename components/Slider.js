@@ -124,10 +124,6 @@ const SliderThumbsWrapper = styled.div`
             width: 120px !important;
         }
     }
-
-
-
-
 `
 
 

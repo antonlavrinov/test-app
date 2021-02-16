@@ -1,5 +1,4 @@
 import {useState} from 'react'
-
 import Layout from '../components/Layout'
 import styled from 'styled-components'
 import RawgService from '../rawg-service'
@@ -55,10 +54,18 @@ const HeadingTitle = styled.h1`
     width: 100%;
 `
 
+const ErrorMessage = styled.div`
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 150px;
+    color: var(--pale-text);
+`
 
 
 
 const rawgService = new RawgService()
+
 
 const HomePage = ({serverGames}) => {
 
@@ -75,8 +82,7 @@ const HomePage = ({serverGames}) => {
 
     const [loading, setLoading] = useState(false)
     const [fetchMoreLoading, setFetchMoreLoading] = useState(false)
-
-
+    const [error, setError] = useState(false)
 
     
 
@@ -115,32 +121,51 @@ const HomePage = ({serverGames}) => {
 
     const fetchGames = async (platform, order, search) => {
         setLoading(true)
-        const gameResults = await rawgService.getGameResults(platform, order, search)
-        setGames(gameResults)
+        try {
+            const gameResults = await rawgService.getGameResults(platform, order, search)
+            setGames(gameResults)
+        } catch(e) {
+            setError(true)
+        }
         setLoading(false)
     }
 
     const fetchMoreGames = async () => {
         setFetchMoreLoading(true)
-        const gameResults = await rawgService.getMoreGames(games.next)
-        setGames(state => {
-            return {
-                ...state,
-                next: gameResults.next,
-                results: [...state.results, ...gameResults.results] 
-            }
-        })
-        console.log('results', gameResults)
+        try {
+            const gameResults = await rawgService.getMoreGames(games.next)
+            setGames(state => {
+                return {
+                    ...state,
+                    next: gameResults.next,
+                    results: [...state.results, ...gameResults.results] 
+                }
+            })
+        } catch(e) {
+            setError(true)
+        }
         setFetchMoreLoading(false)
 
+    }
+
+
+    if (error || serverGames.error) {
+        return (
+            <Layout>
+                <ErrorMessage>Error!</ErrorMessage>
+            </Layout>
+        ) 
     }
 
 
 
     return (
         <Layout>
+            
             <HomePageContent>
-                <SearchField searchGames={searchGames} loading={loading}/>
+                    <SearchField searchGames={searchGames} loading={loading}/>
+
+                
                 {searchMode ? (
                     <SearchResultsHeading>
                         <SearchResultsTitle>
@@ -165,7 +190,10 @@ const HomePage = ({serverGames}) => {
                         {loading ? (
                             <Spinner/>
                         ) : (
-                            <GameList games={games.results}/>
+                            
+                                <GameList games={games.results}/>
+                            
+                            
                         )}
                     </>
                 )}
@@ -175,6 +203,7 @@ const HomePage = ({serverGames}) => {
                 )}
 
             </HomePageContent>
+
         </Layout>
         
     )
@@ -185,9 +214,18 @@ export default HomePage
 
 export const getServerSideProps = async () => {
 
-    const serverGames = await rawgService.getGameResults('', '&ordering=-added', '')
-
-    return {
-        props: { serverGames: serverGames }
+    try {
+        const serverGames = await rawgService.getGameResults('', '&ordering=-added', '')
+        return {
+            props: { serverGames: serverGames }
+        }
+    } catch {
+        return {
+            props: { serverGames: {results: [], error: 'Error!'} }
+        }
     }
+
+
+
+
 }

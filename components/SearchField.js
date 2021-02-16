@@ -1,11 +1,10 @@
-import React, {useState, useCallback, useRef} from 'react'
+import {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import RawgService from '../rawg-service'
 import Link from 'next/link'
-import {debounce} from 'lodash'
 import LookingGlassIcon from '../assets/glass.svg'
-import {useClickOutside} from '../hooks'
-// import { useGamesContext } from '../pages/context'
+import {useClickOutside, useDebounce} from '../hooks'
+
 
 
 const LookingGlass = styled(props => <LookingGlassIcon {...props}/>)`
@@ -57,16 +56,8 @@ const SearchDropdown = styled.div`
 
 
 
-
-const SearchDropdownItemLink = styled(props => <Link {...props}></Link>)`
+const SearchDropdownItem = styled.a`
     display: block;
-    width: 100%;
-    :hover {
-        background: rgba(0,0,0,0.2);
-    }
-`
-
-const SearchDropdownItem = styled.div`
     padding: 10px;
     border-radius: 5px;
     :hover {
@@ -79,53 +70,58 @@ const rawgService = new RawgService()
 
 
 const SearchField = ({searchGames, loading}) => {
-    const [text, setText] = useState('')
-    const [searchResults, setSearchResults] = useState([])
+    const [inputText, setInputText] = useState('')
+    const [dropdownResults, setDropdownResults] = useState([])
     const [dropdownActive, setDropdownActive] = useState(true)
-
 
     const dropdownRef = useClickOutside(() => {
         setDropdownActive(false)
     })
 
-
-    const debounceOnChange = useCallback(
-		debounce(async (value) => {
-            if (value) {
-                const games = await rawgService.getSearchResults(value, 7)
-                setSearchResults(games.results)
-            } else {
-                setSearchResults([])
-            }
-        }, 200),
-		[],
-	);
+    const debouncedText = useDebounce(inputText, 250);
 
 
+    useEffect(() => {
+          if (debouncedText) {
+            searchDropdownResults(debouncedText).then(results => setDropdownResults(results));
+          } else {
+            setDropdownResults([]);
+          }
+        },
+        [debouncedText]
+    );
 
+
+    const searchDropdownResults = async (value) => {
+        try {
+            const searchPreview = await rawgService.getSearchPreviewResults(value, 7)
+            return searchPreview.results
+        } catch(e) {
+            console.log(e)
+        }
+    }
 
 
     const handleChange = async (e) => {
-        setText(e.target.value)
+        setInputText(e.target.value)
         setDropdownActive(true)
-        debounceOnChange(e.target.value)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (!text) {
+        if (!inputText) {
             return
         }
         setDropdownActive(false)
-        setSearchResults([])
-        setText('')
-        searchGames(text)
+        setDropdownResults([])
+        setInputText('')
+        searchGames(inputText)
     }
 
     const handleDropdownResultClick = () => {
-        setSearchResults([])
+        setDropdownResults([])
         setDropdownActive(false)
-        setText('')
+        setInputText('')
     }
 
     return (
@@ -136,16 +132,16 @@ const SearchField = ({searchGames, loading}) => {
                 placeholder="Search here..." 
                 type="text"
                 onChange={handleChange}
-                value={text}/>
-            {dropdownActive && searchResults.length > 0 && (
+                value={inputText}/>
+            {dropdownActive && dropdownResults.length > 0 && (
                 <SearchDropdown ref={dropdownRef}>
-                    {searchResults.map((result) => {
+                    {dropdownResults.map((result) => {
                         return (
-                            <SearchDropdownItemLink  key={result.id}  href={`/games/${result.slug}`} >
+                            <Link key={result.id}  href={`/games/${result.slug}`} passHref>
                                 <SearchDropdownItem role="button" tabIndex="0" onClick={handleDropdownResultClick}>
                                     {result.name}
                                 </SearchDropdownItem>
-                            </SearchDropdownItemLink>
+                            </Link>
                         )
                     })}
                 </SearchDropdown>

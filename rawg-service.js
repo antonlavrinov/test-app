@@ -34,7 +34,7 @@ export default class RawgService {
         return await res.json()
     }
 
-    getSearchResults = async (text, resultsNum) => {
+    getSearchPreviewResults = async (text, resultsNum) => {
         const res = await fetch(`${this._apiBase}/games?key=${this._apiKey}&page_size=${resultsNum}&search=${text}`)
         if (!res.ok) {
             throw new Error('Could not fetch search result')

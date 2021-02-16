@@ -25,12 +25,3 @@ const MyApp = ({ Component, pageProps }) => {
 export default MyApp
 
 
-// загружает список платформ и передает в глобальный контекст
-// MyApp.getInitialProps = async () => {
-//   const response =  await fetch(`https://api.rawg.io/api/platforms?page_size=10`)
-//   const platforms = await response.json()
-
-//   const games = await rawgService.getAllGames()
-
-//   return {platforms: platforms.results, games: games.results}
-// }

@@ -2,7 +2,6 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import Layout from '../../components/Layout'
 import Screenshots from '../../components/Screenshots'
-import Slider from '../../components/Slider'
 import RawgService from '../../rawg-service'
 
 
@@ -93,29 +92,23 @@ const GameMetaText = styled.div`
 
 `
 
-const GameSlider = styled.div`
 
-`
-
-
-const GameScreenshot = styled.div`
-    width: 300px;
-    height: 400px;
-    ${props => props.url && `
-        background-image: url(${props.url})
-    `}
-`
-
-const BackWrapper = styled(props => <Link {...props}></Link>)`
-`
-
-const Back = styled.span`
+const Back = styled.a`
     border-bottom: 1px solid var(--pale-text);
     font-size: 20px;
     :hover {
         cursor: pointer;
+        font-size: 20px;
         border-bottom: 1px solid var(--white);
     }
+`
+
+const ErrorMessage = styled.div`
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 150px;
+    color: var(--pale-text);
 `
 
 
@@ -128,8 +121,8 @@ const rawgService = new RawgService()
 
 const GamePage = ({game, screenshots}) => {
 
-    // {console.log('query', game)}
-    // {console.log('screenshots', screenshots)}
+
+
 
     const formatDate = (dateString) => {
         const options = { year: "numeric", month: "short", day: "numeric" }
@@ -139,10 +132,18 @@ const GamePage = ({game, screenshots}) => {
     const formattedDate = formatDate(game.released)
 
 
+    if (game.error) {
+        return (
+            <Layout>
+                <ErrorMessage>Error!</ErrorMessage>
+            </Layout>
+        ) 
+    }
+
+
     return (
         <Layout title={game.name}>
-            <BackWrapper href="/"><Back role="button" tabIndex="0">← Back</Back>
-            </BackWrapper>
+            <Link href="/" passHref><Back role="button" tabIndex="0">← Back</Back></Link>
             <GameWrapper>
                 <GameMainInfo>
                     <GamePoster imageUrl={game.background_image}></GamePoster>
@@ -197,11 +198,17 @@ export default GamePage
 
 
 export const getServerSideProps = async ({query}) => {
-
-    const game = await rawgService.getGame(query.game_id)
-    const screenshots = await rawgService.getGameScreenshots(query.game_id)
-
-    return {
-        props: { game, screenshots }
+  
+    try {
+        const game = await rawgService.getGame(query.game_id)
+        const screenshots = await rawgService.getGameScreenshots(query.game_id)
+        return {
+            props: { game, screenshots }
+        }
+    } catch {
+        return {
+            props: { game: {error: 'Error!'}}
+        }
     }
+
 }

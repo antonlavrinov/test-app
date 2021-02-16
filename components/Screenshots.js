@@ -1,4 +1,3 @@
-import React from 'react'
 import Slider from './Slider'
 import styled from 'styled-components'
 import {useState} from 'react'

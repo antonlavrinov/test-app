@@ -5,6 +5,7 @@ import { Container, GlobalStyle } from '../global-styles'
 
 
 
+
 const MainWrapper = styled.main`
     display: flex;
     justify-content: space-between;
