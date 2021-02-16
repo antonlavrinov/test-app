@@ -92,7 +92,7 @@ const FilterSelectWrapper = styled.div`
 
 
 
-const CustomFilter = ({selectFilter, filterList, defaultOption, loading}) => {
+const CustomFilter = ({selectFilter, filterList, defaultOption, loading, name}) => {
 
     const [dropdown, setDropdownActive] = useState(false)
     const [selectedOption, setSelectedOption] = useState(defaultOption)
@@ -125,7 +125,7 @@ const CustomFilter = ({selectFilter, filterList, defaultOption, loading}) => {
                 role="button" 
                 tabIndex="0" >
                 <FilterSelectTitle isLoading={loading} >
-                    Order by: <span>{selectedOption}</span>
+                    {name} <span>{selectedOption}</span>
                 </FilterSelectTitle>
                 <Arrow/>
             </FilterSelect>

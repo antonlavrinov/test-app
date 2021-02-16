@@ -35,12 +35,14 @@ const Filters = ({selectPlatform, selectOrder, loading}) => {
                 filterList={platformList} 
                 selectFilter={selectPlatform}
                 defaultOption={"All games"}
-                loading={loading}/>
+                loading={loading}
+                name="Platform:"/>
             <CustomFilter 
                 filterList={orderingList} 
                 selectFilter={selectOrder}
                 defaultOption={"All"}
-                loading={loading}/>
+                loading={loading}
+                name="Order by:"/>
         </FiltersWrapper>
     )
 }
