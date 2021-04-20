@@ -2,8 +2,8 @@ import CustomFilter from "../custom-filter";
 import * as SC from "./Filters";
 
 type FiltersProps = {
-  selectPlatform: string;
-  selectOrder: string;
+  selectPlatform: any;
+  selectOrder: any;
   loading: boolean;
 };
 

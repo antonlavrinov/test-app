@@ -2,15 +2,12 @@ import { useRef, useCallback } from "react";
 import Spinner from "../Spinner";
 import * as SC from "./LoadMore";
 
-type LoadMoreProps = {
-  fetchMoreLoading: any;
-  fetchMoreGames: any;
-};
+// type LoadMoreProps = {
+//   fetchMoreLoading: any;
+//   fetchMoreGames: any;
+// };
 
-const LoadMore: React.FC<LoadMoreProps> = ({
-  fetchMoreLoading,
-  fetchMoreGames,
-}) => {
+const LoadMore = ({ fetchMoreLoading, fetchMoreGames }) => {
   const observer = useRef();
 
   const loadMoreElementRef = useCallback(
