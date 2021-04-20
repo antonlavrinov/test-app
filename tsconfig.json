@@ -21,7 +21,9 @@
     "pages/_document.js",
     "components/custom-filter/index.jsx",
     "components/custom-filter/hooks.jsx",
-    "hooks.js"
+    "hooks.js",
+    "components/search-field/hooks/useClickOutside.jsx",
+    "components/load-more/index.jsx"
   ],
   "exclude": ["node_modules"]
 }

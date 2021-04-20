@@ -9,7 +9,6 @@ import LoadMore from "../components/load-more";
 import Spinner from "../components/Spinner";
 import CrossIcon from "../assets/cross.svg";
 import Filters from "../components/filters";
-import TestComp from "../components/TestComponents/TestComp";
 
 const HomePageContent = styled.div`
   min-height: 900px;
@@ -149,7 +148,6 @@ const HomePage = ({ serverGames }) => {
   return (
     <Layout>
       <HomePageContent>
-        <TestComp />
         <SearchField searchGames={searchGames} loading={loading} />
         {searchMode ? (
           <SearchResultsHeading>
