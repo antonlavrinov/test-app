@@ -12,6 +12,7 @@
     "@svgr/webpack": "^5.5.0",
     "axios": "^0.21.1",
     "next": "10.0.6",
+    "next-pwa": "^5.2.24",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "react": "17.0.1",
