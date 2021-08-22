@@ -7,7 +7,7 @@ self.fallback = async request => {
   // https://developer.mozilla.org/en-US/docs/Web/API/RequestDestination
   switch (request.destination) {
     case 'document':
-      if (true) return caches.match("/_offline.page.js", {
+      if (true) return caches.match("/other-offline.js", {
         ignoreSearch: true
       });
 
