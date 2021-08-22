@@ -11,7 +11,7 @@
   "dependencies": {
     "@svgr/webpack": "^5.5.0",
     "axios": "^0.21.1",
-    "next": "10.0.6",
+    "next": "^11.1.0",
     "next-pwa": "^5.2.24",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
@@ -19,7 +19,7 @@
     "react-dom": "17.0.1",
     "sass": "^1.32.7",
     "styled-components": "^5.2.1",
-    "swiper": "6.4.7"
+    "swiper": "^6.8.3"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.8",
