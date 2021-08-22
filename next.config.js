@@ -5,7 +5,7 @@ module.exports = withPWA({
     dest: 'public',
     fallbacks: {
       // image: '/static/images/fallback.png',
-      document: '/other-offline.js',  // if you want to fallback to a custom page other than /_offline
+      document: '../pages/other-offline.js',  // if you want to fallback to a custom page other than /_offline
       // font: '/static/font/fallback.woff2',
       // audio: ...,
       // video: ...,
