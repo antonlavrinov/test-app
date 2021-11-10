@@ -21,7 +21,7 @@ const NotFoundPage = () => {
   return (
     <Layout>
       <ErrorMessage>404 
-        {/* {JSON.stringify(loc)} */}
+        {JSON.stringify(loc)}
         {decodeURIComponent("https%3A%2F%2Fyoutu.be%2FIkpZggx4yNI")}
         </ErrorMessage>
     </Layout>
