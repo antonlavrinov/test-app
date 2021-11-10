@@ -62,6 +62,8 @@ const rawgService = new RawgService();
 
 const HomePage = ({ serverGames }) => {
   const [games, setGames] = useState(serverGames);
+  const [vidLink, setVidLink] = useState("")
+  const [urlFull, setUrlFull] = useState("")
 
   const [selectedHeading, setSelectedHeading] = useState("All games");
   const [searchMode, setSearchMode] = useState(false);
@@ -105,6 +107,17 @@ const HomePage = ({ serverGames }) => {
     fetchGames(platformQuery, orderQuery, "");
   };
 
+  useEffect(() => {
+    const parsedUrl = new URL(String(window.location));
+
+    const videolink = parsedUrl.searchParams.get('videolink');
+    if (videolink) {
+      setVidLink(videolink)
+      setUrlFull(String(parsedUrl))
+      // history.push(`/play/${youtubeParser(videolink)}/`);
+    }
+  }, [])
+
   const fetchGames = async (platform, order, search) => {
     setLoading(true);
     try {
@@ -142,6 +155,16 @@ const HomePage = ({ serverGames }) => {
       <Layout>
         <ErrorMessage>Error!</ErrorMessage>
       </Layout>
+    );
+  }
+
+  if (vidLink) {
+    return (
+      <div style={{background: "red", height: "100px", fontSize: "20px", padding: "30px", color: "white"}}>
+        <div>{vidLink}</div>
+        <div>{urlFull}</div>
+             
+      </div>
     );
   }
 
