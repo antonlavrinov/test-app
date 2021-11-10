@@ -33,7 +33,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
       background: var(--background-dark-blue);
       color: var(--white);
-      overflow-x: hidden;
+      /* overflow-x: hidden; */
       min-width: 100%;
   }
 
