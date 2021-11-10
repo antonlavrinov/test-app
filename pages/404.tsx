@@ -15,7 +15,7 @@ const NotFoundPage: React.FC = () => {
   const [loc, setLocation] = useState("")
 
   useEffect(() => {
-    setLocation(String(window.location))
+    setLocation(window.location)
   }, [])
   return (
     <Layout>
