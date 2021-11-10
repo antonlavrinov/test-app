@@ -1,3 +1,4 @@
+import {useState, useEffect} from "react"
 import Layout from "../components/layout";
 import styled from "styled-components";
 
@@ -10,9 +11,15 @@ const ErrorMessage = styled.div`
 `;
 
 const NotFoundPage: React.FC = () => {
+
+  const [loc, setLocation] = useState("")
+
+  useEffect(() => {
+    setLocation(String(window.location))
+  }, [])
   return (
     <Layout>
-      <ErrorMessage>404 {String(window.location)}</ErrorMessage>
+      <ErrorMessage>404 {loc}</ErrorMessage>
     </Layout>
   );
 };
