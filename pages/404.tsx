@@ -12,7 +12,7 @@ const ErrorMessage = styled.div`
 const NotFoundPage: React.FC = () => {
   return (
     <Layout>
-      <ErrorMessage>404</ErrorMessage>
+      <ErrorMessage>404 {String(window.location)}</ErrorMessage>
     </Layout>
   );
 };
