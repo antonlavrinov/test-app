@@ -24,6 +24,6 @@
     "hooks.js",
     "components/search-field/hooks/useClickOutside.jsx",
     "components/load-more/index.jsx"
-  ],
+, "pages/404.js"  ],
   "exclude": ["node_modules"]
 }

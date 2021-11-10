@@ -112,7 +112,7 @@ const HomePage = ({ serverGames }) => {
 
     const videolink = parsedUrl.searchParams.get('videolink');
     if (videolink) {
-      setVidLink(videolink)
+      setVidLink(decodeURIComponent(videolink))
       setUrlFull(String(parsedUrl))
       // history.push(`/play/${youtubeParser(videolink)}/`);
     }

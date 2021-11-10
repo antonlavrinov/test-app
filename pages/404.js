@@ -16,10 +16,14 @@ const NotFoundPage = () => {
 
   useEffect(() => {
     setLocation(window.location)
+    console.log("location", window.location)
   }, [])
   return (
     <Layout>
-      <ErrorMessage>404 {JSON.stringify(loc)}</ErrorMessage>
+      <ErrorMessage>404 
+        {/* {JSON.stringify(loc)} */}
+        {decodeURIComponent("https%3A%2F%2Fyoutu.be%2FIkpZggx4yNI")}
+        </ErrorMessage>
     </Layout>
   );
 };
