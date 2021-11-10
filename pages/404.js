@@ -10,7 +10,7 @@ const ErrorMessage = styled.div`
   color: var(--pale-text);
 `;
 
-const NotFoundPage: React.FC = () => {
+const NotFoundPage = () => {
 
   const [loc, setLocation] = useState("")
 
@@ -19,7 +19,7 @@ const NotFoundPage: React.FC = () => {
   }, [])
   return (
     <Layout>
-      <ErrorMessage>404 {loc}</ErrorMessage>
+      <ErrorMessage>404 {JSON.stringify(loc)}</ErrorMessage>
     </Layout>
   );
 };
