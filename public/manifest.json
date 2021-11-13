@@ -11,11 +11,11 @@
     ],
     "theme_color": "#FFFFFF",
     "background_color": "#FFFFFF",
-    "start_url": "/share_target/",
+    "start_url": "/",
     "display": "standalone",
     "orientation": "portrait",
     "share_target": {
-      "action": "/",
+      "action": "/share_target",
       "method": "GET",
       "params": {
         "title": "title",
