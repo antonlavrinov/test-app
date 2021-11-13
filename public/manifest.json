@@ -11,7 +11,7 @@
     ],
     "theme_color": "#FFFFFF",
     "background_color": "#FFFFFF",
-    "start_url": "/share_target",
+    "start_url": "/share_target/",
     "display": "standalone",
     "orientation": "portrait",
     "share_target": {
